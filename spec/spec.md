@@ -180,8 +180,8 @@ Response (abridged):
 
 ## References
 
-- **What agents actually reach** — the field report behind the trace numbers in this guide ([`data/traces.csv`](../data/traces.csv)).
-- **The state of agent readiness** — the scanner report behind the reachability figure.
+- **[What agents actually reach](https://ora.ai/blog/what-agents-actually-reach)** — the field report behind the trace numbers in this guide. The report draws on a subset of the data used for this spec; the full dataset is in [`data/`](../data/).
+- **[The state of agent readiness](https://ora.ai/blog/state-of-agent-readiness-2026)** — the scanner report behind the reachability figure.
 - **[ora research](https://ora.ai)** — the ongoing research program behind the protocol.
 
 ## Changelog
