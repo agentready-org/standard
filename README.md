@@ -1,44 +1,49 @@
 # AgentReady
 
-> An open standard for the agentic web — a product implements AgentReady when AI agents can use it from discovery to completion.
+> **Make your site readable by AI agents** — the agent readiness spec, and the measurement data behind it.
 
-**Status:** Draft. Not yet normative.
 **Canonical site:** https://agentready.org
 **Working draft:** [`spec/draft.md`](spec/draft.md)
+**Dataset:** [`data/`](data/)
 
 ---
 
 ## What this repo is
 
-The agentic web needs the same kind of baseline that "mobile‑ready" gave the responsive web: a clear, technical answer to "is this product usable by an agent, end to end?" AgentReady is that answer. It is built by composing existing standards — A2A, MCP, OpenAPI, OAuth, llms.txt, and others — into a single conformance surface, so products are evaluated against one bar instead of a dozen.
+AI agents are becoming first-class visitors of the web: they fetch pages, follow links, read docs, and act on behalf of users. Most sites were never built with that audience in mind. AgentReady is a spec that answers, concretely and measurably, "is this site usable by an agent, end to end?"
 
-This repository holds the working text of the standard. The canonical surface for readers is [agentready.org](https://agentready.org); this repo is for editors and contributors who want to propose changes, file errata, or reconcile drafting decisions.
+Every measured claim in the spec derives from real data, published in this repository. The canonical, readable surface of the spec is [agentready.org](https://agentready.org); this repo is where the text is drafted and versioned, and where the underlying dataset lives so anyone can reproduce or challenge the numbers.
+
+Written by the [ora.ai](https://ora.ai) research lab in collaboration with **Vercel**.
+
+## Repository layout
+
+| Path | What it holds |
+|---|---|
+| [`spec/draft.md`](spec/draft.md) | The working text of the standard — section structure, `AR-*` requirement identifiers, and open questions. |
+| [`data/`](data/) | The measurement data behind the spec, with its own [README](data/README.md) documenting every column. |
+
+## The data
+
+Two CSV files back every measured number in the spec:
+
+- **[`data/traces.csv`](data/traces.csv)** — 1,033 real agent runs across 25 public product sites (Stripe, Notion, Datadog, Twilio, and others). Each run placed an agent in an isolated environment with a realistic task — find the pricing, look up the rate limits, integrate the API — and traced every tool call and fetched page, turn by turn. Runs span four models (claude-haiku-4-5, claude-sonnet-4-6, gpt-5.4, claude-fable-5) and two harnesses (claude-agent-sdk, eve), collected June–August 2026.
+- **[`data/fetchability.csv`](data/fetchability.csv)** — a controlled experiment on what makes a page's answer extractable: one documentation site served under 19 configurations, changing one feature at a time (llms.txt, sitemap.xml, JSON-LD, AGENTS.md, heading structure, redirects, a JavaScript-only shell, an agent-UA block), probed by both a plain fetch and a JavaScript-executing client. 190 deterministic probes in total.
+
+See [`data/README.md`](data/README.md) for the full column reference and methodology.
 
 ## Status
 
-- **v0.0.1** working draft. No requirement is normative until **v1.0.0**.
+- The spec text in this repo is a **working draft**. No requirement is normative until v1.0.0.
 - Versioning follows [semver](https://semver.org/). A major bump indicates a breaking change to a normative requirement.
-
-## Underlying standards
-
-AgentReady references, rather than re‑invents, the following:
-
-- [A2A](https://a2aproject.org/) — Agent Card and capability descriptors
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [OpenAPI 3.1](https://spec.openapis.org/oas/v3.1.0)
-- [OAuth 2.0](https://www.rfc-editor.org/rfc/rfc6749) / [OpenID Connect](https://openid.net/specs/)
-- [llms.txt](https://llmstxt.org/)
-- [JSON‑LD](https://www.w3.org/TR/json-ld11/) / [Schema.org](https://schema.org/)
-- [Web Bot Auth](https://www.rfc-editor.org/rfc/rfc9421) (HTTP Message Signatures + IETF draft)
-- [x402](https://x402.org/)
-- [API Catalog (RFC 9727)](https://www.rfc-editor.org/rfc/rfc9727)
+- Where this repo and [agentready.org](https://agentready.org) diverge, the site wins until reconciliation lands here.
 
 ## Contributing
 
-- Open an issue for unclear requirements, missing surfaces, or errata.
-- Pull requests should edit [`spec/draft.md`](spec/draft.md).
-- A `CONTRIBUTING.md` describing the editorial process is forthcoming.
+- Open an issue for unclear requirements, missing surfaces, errata, or questions about the data.
+- Pull requests against the spec should edit [`spec/draft.md`](spec/draft.md).
+- Challenges to a measured number are welcome — the dataset is in [`data/`](data/) precisely so the numbers can be checked.
 
 ## License
 
-MIT.
+MIT — see [`data/LICENSE`](data/LICENSE) for the dataset. © 2026 era labs (ora.ai).
