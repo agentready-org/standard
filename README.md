@@ -3,7 +3,7 @@
 > An open standard for the agentic web — a product implements AgentReady when AI agents can use it from discovery to completion.
 
 **Canonical site:** https://agentready.org
-**Working draft:** [`spec/draft.md`](spec/draft.md)
+**Spec:** [`spec/spec.md`](spec/spec.md)
 **Dataset:** [`data/`](data/)
 **Authors:** the [ora.ai](https://ora.ai) research lab, in collaboration with the [Vercel](https://vercel.com) team
 
@@ -21,7 +21,7 @@ The research behind the spec — the agent traces and fetchability experiments i
 
 | Path | What it holds |
 |---|---|
-| [`spec/draft.md`](spec/draft.md) | The working text of the standard — section structure, `AR-*` requirement identifiers, and open questions. |
+| [`spec/spec.md`](spec/spec.md) | The spec text — the practices that make a site findable, readable, and actionable for AI agents, with the measured findings behind each one. |
 | [`data/`](data/) | The measurement data behind the spec, with its own [README](data/README.md) documenting every column. |
 
 ## The data
@@ -35,14 +35,14 @@ See [`data/README.md`](data/README.md) for the full column reference and methodo
 
 ## Status
 
-- The spec text in this repo is a **working draft**. No requirement is normative until v1.0.0.
+- The spec is at **v1.0** (August 2026), its first public version.
 - Versioning follows [semver](https://semver.org/). A major bump indicates a breaking change to a normative requirement.
 - Where this repo and [agentready.org](https://agentready.org) diverge, the site wins until reconciliation lands here.
 
 ## Contributing
 
 - Open an issue for unclear requirements, missing surfaces, errata, or questions about the data.
-- Pull requests against the spec should edit [`spec/draft.md`](spec/draft.md).
+- Pull requests against the spec should edit [`spec/spec.md`](spec/spec.md).
 - Challenges to a measured number are welcome — the dataset is in [`data/`](data/) precisely so the numbers can be checked.
 
 ## License
