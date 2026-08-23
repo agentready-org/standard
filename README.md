@@ -5,6 +5,7 @@
 **Canonical site:** https://agentready.org
 **Working draft:** [`spec/draft.md`](spec/draft.md)
 **Dataset:** [`data/`](data/)
+**Authors:** the [ora.ai](https://ora.ai) research lab, in collaboration with the [Vercel](https://vercel.com) team
 
 ---
 
@@ -14,7 +15,7 @@ AI agents are becoming first-class visitors of the web: they fetch pages, follow
 
 Unlike most standards, AgentReady is grounded in measurement. Every measured claim in the spec derives from real data, published in this repository. The canonical, readable surface of the spec is [agentready.org](https://agentready.org); this repo is where the text is drafted and versioned, and where the underlying dataset lives so anyone can reproduce or challenge the numbers.
 
-The research behind the spec was conducted by the **[ora.ai](https://ora.ai) research lab**, and the spec was written in collaboration with the **[Vercel](https://vercel.com) team**.
+The spec is co-written by the **[ora.ai](https://ora.ai) research lab** and the **[Vercel](https://vercel.com) team**: the research behind it — the agent traces and fetchability experiments in [`data/`](data/) — was conducted by the ora.ai research lab, and the spec text is written in collaboration with the Vercel team.
 
 ## Repository layout
 
