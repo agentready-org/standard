@@ -1,8 +1,8 @@
 # Agent readiness spec - dataset
 
 The measurement data behind **"Make your site readable by AI agents"** - the
-agent readiness spec, written by the [ora.ai](https://ora.ai) research lab in
-collaboration with **Vercel**. Every measured number in the spec derives from
+agent readiness spec, written by [ora.ai](https://ora.ai) and
+**[Vercel](https://vercel.com)**. Every measured number in the spec derives from
 the two CSV files in this folder. The spec is hosted at
 [agentready.org](https://agentready.org).
 

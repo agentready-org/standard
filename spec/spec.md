@@ -4,7 +4,7 @@
 
 **Version:** v1.0 · last updated August 2026
 **Full spec:** https://agentready.org ← the canonical, complete text
-**Authors:** the [ora.ai](https://ora.ai) research lab, in collaboration with the [Vercel](https://vercel.com) team
+**Written by:** [ora.ai](https://ora.ai) and [Vercel](https://vercel.com)
 **Dataset:** [`data/`](../data/)
 
 ---
