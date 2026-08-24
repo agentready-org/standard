@@ -2,8 +2,8 @@
 
 > An open standard for the agentic web — a product implements AgentReady when AI agents can use it from discovery to completion.
 
-**Full spec:** https://agentready.org
-**Spec outline:** [`spec/spec.md`](spec/spec.md)
+**Canonical site:** https://agentready.org
+**Spec:** [`spec/spec.md`](spec/spec.md)
 **Dataset:** [`data/`](data/)
 **Written by:** [ora.ai](https://ora.ai) and [Vercel](https://vercel.com)
 
@@ -21,7 +21,7 @@ The spec is written by **[ora.ai](https://ora.ai)** and **[Vercel](https://verce
 
 | Path | What it holds |
 |---|---|
-| [`spec/spec.md`](spec/spec.md) | A condensed outline of the spec — the find/read/act structure and key practices. The full text lives at [agentready.org](https://agentready.org). |
+| [`spec/spec.md`](spec/spec.md) | The spec text — stable `AR-*` requirement identifiers across the find/read/act stages, with normative levels derived from the measured findings. |
 | [`data/`](data/) | The measurement data behind the spec, with its own [README](data/README.md) documenting every column. |
 
 ## The data
@@ -42,7 +42,7 @@ See [`data/README.md`](data/README.md) for the full column reference and methodo
 ## Contributing
 
 - Open an issue for unclear requirements, missing surfaces, errata, or questions about the data.
-- Pull requests against the spec outline should edit [`spec/spec.md`](spec/spec.md); the full text is maintained at [agentready.org](https://agentready.org).
+- Pull requests against the spec should edit [`spec/spec.md`](spec/spec.md).
 - Challenges to a measured number are welcome — the dataset is in [`data/`](data/) precisely so the numbers can be checked.
 
 ## License
