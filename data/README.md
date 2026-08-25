@@ -80,7 +80,7 @@ configuration differs from the baseline by exactly one feature.
 
 ## License
 
-MIT - see `LICENSE`.
+CC BY 4.0 - see `LICENSE`.
 
 ## Source
 
