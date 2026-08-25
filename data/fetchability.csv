@@ -1,0 +1,191 @@
+variant,description,topic,client,success
+full-spec,every addition combined,rate-limits,plain-fetch,1
+full-spec,every addition combined,rate-limits,js-fetch,1
+full-spec,every addition combined,regions,plain-fetch,1
+full-spec,every addition combined,regions,js-fetch,1
+full-spec,every addition combined,auth,plain-fetch,1
+full-spec,every addition combined,auth,js-fetch,1
+full-spec,every addition combined,webhooks,plain-fetch,1
+full-spec,every addition combined,webhooks,js-fetch,1
+full-spec,every addition combined,cli,plain-fetch,1
+full-spec,every addition combined,cli,js-fetch,1
+stripped-clean,"minimal clean page, low checklist score",rate-limits,plain-fetch,1
+stripped-clean,"minimal clean page, low checklist score",rate-limits,js-fetch,1
+stripped-clean,"minimal clean page, low checklist score",regions,plain-fetch,1
+stripped-clean,"minimal clean page, low checklist score",regions,js-fetch,1
+stripped-clean,"minimal clean page, low checklist score",auth,plain-fetch,1
+stripped-clean,"minimal clean page, low checklist score",auth,js-fetch,1
+stripped-clean,"minimal clean page, low checklist score",webhooks,plain-fetch,1
+stripped-clean,"minimal clean page, low checklist score",webhooks,js-fetch,1
+stripped-clean,"minimal clean page, low checklist score",cli,plain-fetch,1
+stripped-clean,"minimal clean page, low checklist score",cli,js-fetch,1
+tier-a,top-tier checklist items only,rate-limits,plain-fetch,1
+tier-a,top-tier checklist items only,rate-limits,js-fetch,1
+tier-a,top-tier checklist items only,regions,plain-fetch,1
+tier-a,top-tier checklist items only,regions,js-fetch,1
+tier-a,top-tier checklist items only,auth,plain-fetch,1
+tier-a,top-tier checklist items only,auth,js-fetch,1
+tier-a,top-tier checklist items only,webhooks,plain-fetch,1
+tier-a,top-tier checklist items only,webhooks,js-fetch,1
+tier-a,top-tier checklist items only,cli,plain-fetch,1
+tier-a,top-tier checklist items only,cli,js-fetch,1
+hostile,"returns 403 to agent user-agents, hostile configuration",rate-limits,plain-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",rate-limits,js-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",regions,plain-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",regions,js-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",auth,plain-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",auth,js-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",webhooks,plain-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",webhooks,js-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",cli,plain-fetch,0
+hostile,"returns 403 to agent user-agents, hostile configuration",cli,js-fetch,0
+baseline,"server-rendered page, no extras",rate-limits,plain-fetch,1
+baseline,"server-rendered page, no extras",rate-limits,js-fetch,1
+baseline,"server-rendered page, no extras",regions,plain-fetch,1
+baseline,"server-rendered page, no extras",regions,js-fetch,1
+baseline,"server-rendered page, no extras",auth,plain-fetch,1
+baseline,"server-rendered page, no extras",auth,js-fetch,1
+baseline,"server-rendered page, no extras",webhooks,plain-fetch,1
+baseline,"server-rendered page, no extras",webhooks,js-fetch,1
+baseline,"server-rendered page, no extras",cli,plain-fetch,1
+baseline,"server-rendered page, no extras",cli,js-fetch,1
+add-llms_txt,baseline + llms.txt,rate-limits,plain-fetch,1
+add-llms_txt,baseline + llms.txt,rate-limits,js-fetch,1
+add-llms_txt,baseline + llms.txt,regions,plain-fetch,1
+add-llms_txt,baseline + llms.txt,regions,js-fetch,1
+add-llms_txt,baseline + llms.txt,auth,plain-fetch,1
+add-llms_txt,baseline + llms.txt,auth,js-fetch,1
+add-llms_txt,baseline + llms.txt,webhooks,plain-fetch,1
+add-llms_txt,baseline + llms.txt,webhooks,js-fetch,1
+add-llms_txt,baseline + llms.txt,cli,plain-fetch,1
+add-llms_txt,baseline + llms.txt,cli,js-fetch,1
+add-agents_md,baseline + AGENTS.md file,rate-limits,plain-fetch,1
+add-agents_md,baseline + AGENTS.md file,rate-limits,js-fetch,1
+add-agents_md,baseline + AGENTS.md file,regions,plain-fetch,1
+add-agents_md,baseline + AGENTS.md file,regions,js-fetch,1
+add-agents_md,baseline + AGENTS.md file,auth,plain-fetch,1
+add-agents_md,baseline + AGENTS.md file,auth,js-fetch,1
+add-agents_md,baseline + AGENTS.md file,webhooks,plain-fetch,1
+add-agents_md,baseline + AGENTS.md file,webhooks,js-fetch,1
+add-agents_md,baseline + AGENTS.md file,cli,plain-fetch,1
+add-agents_md,baseline + AGENTS.md file,cli,js-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,rate-limits,plain-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,rate-limits,js-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,regions,plain-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,regions,js-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,auth,plain-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,auth,js-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,webhooks,plain-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,webhooks,js-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,cli,plain-fetch,1
+add-sitemap_xml,baseline + sitemap.xml,cli,js-fetch,1
+add-sitemap_md,baseline + markdown sitemap,rate-limits,plain-fetch,1
+add-sitemap_md,baseline + markdown sitemap,rate-limits,js-fetch,1
+add-sitemap_md,baseline + markdown sitemap,regions,plain-fetch,1
+add-sitemap_md,baseline + markdown sitemap,regions,js-fetch,1
+add-sitemap_md,baseline + markdown sitemap,auth,plain-fetch,1
+add-sitemap_md,baseline + markdown sitemap,auth,js-fetch,1
+add-sitemap_md,baseline + markdown sitemap,webhooks,plain-fetch,1
+add-sitemap_md,baseline + markdown sitemap,webhooks,js-fetch,1
+add-sitemap_md,baseline + markdown sitemap,cli,plain-fetch,1
+add-sitemap_md,baseline + markdown sitemap,cli,js-fetch,1
+add-json_ld,baseline + JSON-LD block,rate-limits,plain-fetch,1
+add-json_ld,baseline + JSON-LD block,rate-limits,js-fetch,1
+add-json_ld,baseline + JSON-LD block,regions,plain-fetch,1
+add-json_ld,baseline + JSON-LD block,regions,js-fetch,1
+add-json_ld,baseline + JSON-LD block,auth,plain-fetch,1
+add-json_ld,baseline + JSON-LD block,auth,js-fetch,1
+add-json_ld,baseline + JSON-LD block,webhooks,plain-fetch,1
+add-json_ld,baseline + JSON-LD block,webhooks,js-fetch,1
+add-json_ld,baseline + JSON-LD block,cli,plain-fetch,1
+add-json_ld,baseline + JSON-LD block,cli,js-fetch,1
+add-canonical,baseline + canonical link tag,rate-limits,plain-fetch,1
+add-canonical,baseline + canonical link tag,rate-limits,js-fetch,1
+add-canonical,baseline + canonical link tag,regions,plain-fetch,1
+add-canonical,baseline + canonical link tag,regions,js-fetch,1
+add-canonical,baseline + canonical link tag,auth,plain-fetch,1
+add-canonical,baseline + canonical link tag,auth,js-fetch,1
+add-canonical,baseline + canonical link tag,webhooks,plain-fetch,1
+add-canonical,baseline + canonical link tag,webhooks,js-fetch,1
+add-canonical,baseline + canonical link tag,cli,plain-fetch,1
+add-canonical,baseline + canonical link tag,cli,js-fetch,1
+add-og,baseline + Open Graph tags,rate-limits,plain-fetch,1
+add-og,baseline + Open Graph tags,rate-limits,js-fetch,1
+add-og,baseline + Open Graph tags,regions,plain-fetch,1
+add-og,baseline + Open Graph tags,regions,js-fetch,1
+add-og,baseline + Open Graph tags,auth,plain-fetch,1
+add-og,baseline + Open Graph tags,auth,js-fetch,1
+add-og,baseline + Open Graph tags,webhooks,plain-fetch,1
+add-og,baseline + Open Graph tags,webhooks,js-fetch,1
+add-og,baseline + Open Graph tags,cli,plain-fetch,1
+add-og,baseline + Open Graph tags,cli,js-fetch,1
+add-md_mirror,baseline + markdown mirror,rate-limits,plain-fetch,1
+add-md_mirror,baseline + markdown mirror,rate-limits,js-fetch,1
+add-md_mirror,baseline + markdown mirror,regions,plain-fetch,1
+add-md_mirror,baseline + markdown mirror,regions,js-fetch,1
+add-md_mirror,baseline + markdown mirror,auth,plain-fetch,1
+add-md_mirror,baseline + markdown mirror,auth,js-fetch,1
+add-md_mirror,baseline + markdown mirror,webhooks,plain-fetch,1
+add-md_mirror,baseline + markdown mirror,webhooks,js-fetch,1
+add-md_mirror,baseline + markdown mirror,cli,plain-fetch,1
+add-md_mirror,baseline + markdown mirror,cli,js-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,rate-limits,plain-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,rate-limits,js-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,regions,plain-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,regions,js-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,auth,plain-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,auth,js-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,webhooks,plain-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,webhooks,js-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,cli,plain-fetch,1
+drop-headings,baseline minus headings; answer in plain prose,cli,js-fetch,1
+drop-meta_desc,baseline minus the meta description,rate-limits,plain-fetch,1
+drop-meta_desc,baseline minus the meta description,rate-limits,js-fetch,1
+drop-meta_desc,baseline minus the meta description,regions,plain-fetch,1
+drop-meta_desc,baseline minus the meta description,regions,js-fetch,1
+drop-meta_desc,baseline minus the meta description,auth,plain-fetch,1
+drop-meta_desc,baseline minus the meta description,auth,js-fetch,1
+drop-meta_desc,baseline minus the meta description,webhooks,plain-fetch,1
+drop-meta_desc,baseline minus the meta description,webhooks,js-fetch,1
+drop-meta_desc,baseline minus the meta description,cli,plain-fetch,1
+drop-meta_desc,baseline minus the meta description,cli,js-fetch,1
+js-only,answer only inside a JavaScript payload; empty HTML shell,rate-limits,plain-fetch,0
+js-only,answer only inside a JavaScript payload; empty HTML shell,rate-limits,js-fetch,1
+js-only,answer only inside a JavaScript payload; empty HTML shell,regions,plain-fetch,0
+js-only,answer only inside a JavaScript payload; empty HTML shell,regions,js-fetch,1
+js-only,answer only inside a JavaScript payload; empty HTML shell,auth,plain-fetch,0
+js-only,answer only inside a JavaScript payload; empty HTML shell,auth,js-fetch,1
+js-only,answer only inside a JavaScript payload; empty HTML shell,webhooks,plain-fetch,0
+js-only,answer only inside a JavaScript payload; empty HTML shell,webhooks,js-fetch,1
+js-only,answer only inside a JavaScript payload; empty HTML shell,cli,plain-fetch,0
+js-only,answer only inside a JavaScript payload; empty HTML shell,cli,js-fetch,1
+bot-block,returns 403 to agent user-agents,rate-limits,plain-fetch,0
+bot-block,returns 403 to agent user-agents,rate-limits,js-fetch,0
+bot-block,returns 403 to agent user-agents,regions,plain-fetch,0
+bot-block,returns 403 to agent user-agents,regions,js-fetch,0
+bot-block,returns 403 to agent user-agents,auth,plain-fetch,0
+bot-block,returns 403 to agent user-agents,auth,js-fetch,0
+bot-block,returns 403 to agent user-agents,webhooks,plain-fetch,0
+bot-block,returns 403 to agent user-agents,webhooks,js-fetch,0
+bot-block,returns 403 to agent user-agents,cli,plain-fetch,0
+bot-block,returns 403 to agent user-agents,cli,js-fetch,0
+redirects,answer behind extra redirect hops,rate-limits,plain-fetch,1
+redirects,answer behind extra redirect hops,rate-limits,js-fetch,1
+redirects,answer behind extra redirect hops,regions,plain-fetch,1
+redirects,answer behind extra redirect hops,regions,js-fetch,1
+redirects,answer behind extra redirect hops,auth,plain-fetch,1
+redirects,answer behind extra redirect hops,auth,js-fetch,1
+redirects,answer behind extra redirect hops,webhooks,plain-fetch,1
+redirects,answer behind extra redirect hops,webhooks,js-fetch,1
+redirects,answer behind extra redirect hops,cli,plain-fetch,1
+redirects,answer behind extra redirect hops,cli,js-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,rate-limits,plain-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,rate-limits,js-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,regions,plain-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,regions,js-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,auth,plain-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,auth,js-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,webhooks,plain-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,webhooks,js-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,cli,plain-fetch,1
+ua-cloak,serves the agent user-agent a markdown version,cli,js-fetch,1
