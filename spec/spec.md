@@ -11,7 +11,7 @@
 
 This file is the working text behind [agentready.org](https://agentready.org). The site is the canonical surface for readers; this repository is where the text is drafted, reviewed, and versioned — and where the [dataset](../data/) behind every measured number lives, so the numbers can be reproduced or challenged.
 
-AI agents visit websites on users' behalf to answer questions, integrate APIs, and complete tasks. Together with the ora.ai research lab, we measured which site features help them succeed. The requirements below follow the order in which agents encounter a site: **find, read, then act**. Each stage depends on the previous one, and unlinked files are unlikely to be discovered.
+AI agents visit websites on users' behalf to answer questions, integrate APIs, and complete tasks. The ora.ai research lab measured which site features help them succeed. The requirements below follow the order in which agents encounter a site: **find, read, then act**. Each stage depends on the previous one, and unlinked files are unlikely to be discovered.
 
 **Versioning policy.** This document follows [Semantic Versioning](https://semver.org/).
 
@@ -68,7 +68,7 @@ Normative weight is derived from measurement. In the studies, only two changes c
 
 ## Conformance
 
-A site conforms to AgentReady when it satisfies every **MUST** requirement that applies to it.
+A site conforms to AgentReady when it satisfies every **MUST**-level requirement that applies to it, including **MUST NOT** prohibitions.
 
 All requirements share one prerequisite: the agent must be able to reach the page and find the answer in the returned HTML.
 
@@ -134,7 +134,7 @@ The curl is not proof either way: bot blockers weigh where a request comes from 
 | ID | Requirement | Level | Evidence |
 |----|---|---|---|
 | `AR-READ-01` | The answer **MUST** be present in the initial HTML — server-rendered or prerendered, not injected by a single-page app after load. | **MUST** | **[STUDIES]** A JavaScript-hidden answer was one of only two changes that broke an agent. The other was blocking it outright. |
-| `AR-READ-02` | The site **MUST** return accurate HTTP status codes: `404` (or a valid redirect) for missing paths, and `429` with `Retry-After` when throttling — never `200` for a missing page or a silent challenge page. | **MUST** | Agents cannot distinguish a soft-404 from a live page. In one observed case, a single-page app returned `200` for every path, making dead URLs appear valid. Agents and crawlers treat `429` as a back-off signal and will return. |
+| `AR-READ-02` | The site **MUST** return accurate HTTP status codes: `404` (or a valid redirect) for missing paths, and `429` with `Retry-After` when throttling — never a `200` for a missing page, and never a silent challenge page in place of a `429`. | **MUST** | Agents cannot distinguish a soft-404 from a live page. In one observed case, a single-page app returned `200` for every path, making dead URLs appear valid. Agents and crawlers treat `429` as a back-off signal and will return. |
 | `AR-READ-03` | The homepage **SHOULD** be served as raw HTML with real links to docs, product, and pricing. | **SHOULD** | **[STUDIES]** Reached in 69% of runs, and it was the agent's first step in 92% of them; in 59% of those runs the next hop was a docs page. |
 | `AR-READ-04` | Docs pages **SHOULD** answer the tasks users bring to agents. | **SHOULD** | **[STUDIES]** Reached in 83% of runs and fetched more than any other page type — about 3.4 docs pages per run. |
 | `AR-READ-05` | Code snippets **SHOULD** be fenced and language-tagged. | **SHOULD** | **[STUDIES]** When an agent's answer included code, 61% of the time it contained lines taken verbatim from a page it fetched on the site. |
@@ -173,8 +173,9 @@ If the site is client-rendered, getting answers into the initial HTML is a real 
 ### Underlying standards (informative)
 
 - `llms.txt` — https://llmstxt.org/
-- JSON-LD 1.1 — https://www.w3.org/TR/json-ld11/ / Schema.org — https://schema.org/
-- `Retry-After` / `429` — [RFC 6585](https://www.rfc-editor.org/rfc/rfc6585)
+- JSON-LD 1.1 — https://www.w3.org/TR/json-ld11/
+- Schema.org — https://schema.org/
+- `429` / `Retry-After` — [RFC 6585](https://www.rfc-editor.org/rfc/rfc6585)
 - Link relations as HTTP headers — [RFC 8288](https://www.rfc-editor.org/rfc/rfc8288)
 
 ---
@@ -196,7 +197,8 @@ That is the full journey — find, read, act. The last step happens only if the 
 
 ### Underlying standards (informative)
 
-- OAuth 2.0 — [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749) / PKCE — [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636)
+- OAuth 2.0 — [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749)
+- PKCE — [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636)
 - OAuth 2.0 Authorization Server Metadata — [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414)
 - OAuth 2.0 Protected Resource Metadata — [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728)
 - OpenAPI — https://spec.openapis.org/
