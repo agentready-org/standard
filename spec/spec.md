@@ -142,7 +142,6 @@ The curl is not proof either way: bot blockers weigh where a request comes from 
 | `AR-READ-07` | The site **SHOULD** ship an `llms.txt`: a lean, described index of its key pages. | **SHOULD** | **[STUDIES]** 86% of its fetches came from a page that pointed to it. One in three agents that read it went on to fetch a page it lists, and 36% drew their final answer from its content. |
 | `AR-READ-08` | Key pages **SHOULD** carry JSON-LD — the homepage above all — so an agent fetching the raw HTML gets key facts and routes in one machine-readable block. Critical facts **SHOULD** also appear in visible text. | **SHOULD** | **[STUDIES]** Agents can parse facts straight from the block. Markdown converters may omit script blocks, so repeat critical facts in visible text. |
 | `AR-READ-09` | Pages **MAY** advertise a markdown mirror via `<link rel="alternate" type="text/markdown">` or an equivalent HTTP `Link:` header. | **MAY** | **[STUDIES]** Agents requested markdown on about 65% of web fetches; when they specified a format, they chose markdown 96% of the time. Format did not determine task success — ensure the HTML works first. |
-| `AR-READ-10` | The site **MAY** ship an `AGENTS.md` / `SKILLS.md` with install, auth, and usage in liftable blocks. | **MAY** | **[STUDIES]** An emerging convention — few sites ship one yet. Where a site does and links it, we see agents reach for it. |
 
 Additional measured context: `.well-known/*` files were reached in about 23% of runs across the sites tested **[STUDIES]**, and on sites that ship an `openapi.json`, it was used in 21% of runs **[STUDIES]** (its normative home is `AR-ACT-02`).
 
@@ -224,8 +223,7 @@ curl -X POST https://ora.ai/api/scan \
 ## Open questions
 
 1. **MCP server card path.** SEP-2127 is a moving working-group draft; `AR-ACT-04` will pin a path once the draft settles.
-2. **`AGENTS.md` adoption.** `AR-READ-10` is MAY on early adoption data; a future measurement round may promote it.
-3. **User-initiated fetchers and `robots.txt`.** These fetchers may not consult `robots.txt` at all; whether the crawl-policy notes should address them separately is open.
+2. **User-initiated fetchers and `robots.txt`.** These fetchers may not consult `robots.txt` at all; whether the crawl-policy notes should address them separately is open.
 
 ---
 
