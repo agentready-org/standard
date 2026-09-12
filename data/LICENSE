@@ -1,0 +1,20 @@
+Data license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 era labs (ora.ai)
+
+The dataset in this repository (the files under data/) is licensed under the
+Creative Commons Attribution 4.0 International License. You are free to share
+and adapt the material for any purpose, including commercially, provided you
+give appropriate credit, link to the license, and indicate if changes were made.
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+Summary: https://creativecommons.org/licenses/by/4.0/
+
+Attribution:
+  era labs (ora.ai). (2026). Agent Readiness Dataset: traces and fetchability
+  probes from the agentready.org research program. era labs. Data released
+  under CC BY 4.0.
+
+The dataset contains only machine-recorded observations from agent runs against
+public product websites and deterministic fetch probes of publicly accessible
+documentation. Raw HTML is not redistributed. Domains are public identifiers.
