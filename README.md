@@ -23,6 +23,7 @@ The spec is written by **[ora.ai](https://ora.ai)** and **[Vercel](https://verce
 |---|---|
 | [`spec/spec.md`](spec/spec.md) | The spec text — stable `AR-*` requirement identifiers across the find/read/act stages, with normative levels derived from the measured findings. |
 | [`data/`](data/) | The measurement data behind the spec, with its own [README](data/README.md) documenting every column. |
+| [`CHANGELOG.md`](CHANGELOG.md) | Version history of the spec, including every retired identifier. |
 
 ## The data
 
@@ -35,7 +36,7 @@ See [`data/README.md`](data/README.md) for the full column reference and methodo
 
 ## Status
 
-- The spec is at **v1.0** (August 2026), its first public version.
+- The spec is at **v2.0** (October 2026). See [`CHANGELOG.md`](CHANGELOG.md) for what changed.
 - Versioning follows [semver](https://semver.org/). A major bump indicates a breaking change to a normative requirement.
 - Where this repo and [agentready.org](https://agentready.org) diverge, the site wins until reconciliation lands here.
 
