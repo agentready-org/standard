@@ -1,6 +1,6 @@
 # AgentReady — Make your site readable by AI agents
 
-> **Status:** v1.0 — August 2026
+> **Status:** v2.0 — October 2026
 > **Canonical site:** https://agentready.org
 > **Written by:** [ora.ai](https://ora.ai) and [Vercel](https://vercel.com)
 > **Dataset:** [`data/`](../data/)
@@ -58,11 +58,11 @@ Identifier policy:
 
 ### Evidence tags
 
-Numbers in this document are tagged by source. **[STUDIES]** refers to research from the ora.ai research lab: over 1,000 real agent runs across 25 sites traced turn by turn ([`data/traces.csv`](../data/traces.csv)) and a controlled experiment that toggled one feature at a time ([`data/fetchability.csv`](../data/fetchability.csv)). **[ORA SCANNER]** refers to agent-reachability checks across every scored site. Statements without a tag are recommendations rather than measured findings.
+Numbers in this document are tagged by source. **[STUDIES]** refers to research from the ora.ai research lab: more than 250,000 real agent runs, of which the 1,033 runs across 25 sites traced turn by turn behind the per-claim numbers are published in [`data/traces.csv`](../data/traces.csv); a controlled experiment that toggled one feature at a time ([`data/fetchability.csv`](../data/fetchability.csv)); and the Ora research reports cited next to their numbers. **[ORA SCANNER]** refers to agent-reachability checks across every scored site. Statements without a tag are recommendations rather than measured findings.
 
 ### How normative levels were assigned
 
-Normative weight is derived from measurement. In the studies, only two changes caused agents to fail outright: hiding answers behind JavaScript and blocking access. Those, and the prohibitions that make failures indistinguishable from successes (dishonest status codes), are **MUST**. Practices that measurably shaped where agents went and which pages their answers were built from are **SHOULD**. Emerging conventions with early but unquantified adoption are **MAY**.
+Normative weight is derived from measurement. In the studies, only two changes caused agents to fail outright: hiding answers behind JavaScript and blocking access. Those, the prohibitions that make failures indistinguishable from successes (dishonest status codes), and, for products agents are expected to act on, an interface to act through (`AR-ACT-10`) are **MUST**. Practices that measurably shaped where agents went and which pages their answers were built from, or that make acting reliable, are **SHOULD**. Emerging conventions with early but unquantified adoption are **MAY**.
 
 ---
 
@@ -72,7 +72,7 @@ A site conforms to AgentReady when it satisfies every **MUST**-level requirement
 
 All requirements share one prerequisite: the agent must be able to reach the page and find the answer in the returned HTML.
 
-The stages are evaluated in order. `AR-READ-*` requirements are moot for pages an agent cannot reach, and `AR-ACT-*` requirements are moot for products an agent cannot read about. The `AR-ACT-*` category applies only to products that expose programmatic capability (an API, MCP server, SDK, or CLI); a purely informational site conforms on `AR-FIND-*` and `AR-READ-*` alone.
+The stages are evaluated in order. `AR-READ-*` requirements are moot for pages an agent cannot reach, and `AR-ACT-*` requirements are moot for products an agent cannot read about. The `AR-ACT-*` category applies only to products agents are expected to act on, not only read about; a purely informational site conforms on `AR-FIND-*` and `AR-READ-*` alone.
 
 ---
 
@@ -80,11 +80,14 @@ The stages are evaluated in order. `AR-READ-*` requirements are moot for pages a
 
 **Intent:** agents can cite only pages they can discover and fetch. They may receive or recall a URL, follow a link, or find a page through a crawl-built search index. Pages blocked from crawlers cannot enter those indexes; they are absent rather than ranked lower. Blocking can also stop an agent from fetching a page while answering a user.
 
+When an agent cannot read a site, it answers anyway, from web search and other people's pages. Across 1,056 business sites, those answers were 3.7× as likely to contain none of the facts the user asked for, and agent-ready businesses were clearly recommended 1.9× as often **[STUDIES]** ([AX is the New AEO](https://ora.ai/blog/ax-is-the-new-aeo)).
+
 | ID | Requirement | Level | Evidence |
 |----|---|---|---|
-| `AR-FIND-01` | The site **MUST NOT** block agent and crawler access to public content, in `robots.txt` or at the network layer. | **MUST** | **[STUDIES]** Blocking was one of only two changes that broke an agent. **[ORA SCANNER]** Established agents reached 81–90% of sites. |
+| `AR-FIND-01` | The site **MUST NOT** block agent and crawler access to public content, in `robots.txt` or at the network layer. | **MUST** | **[STUDIES]** Blocking was one of only two changes that broke an agent, and sites that were not agent-ready blocked agents 2.1× as often. **[ORA SCANNER]** Established agents reached 81–90% of sites. |
 | `AR-FIND-02` | Answers agents are expected to cite **SHOULD** be published on one canonical, current, first-party docs page. | **SHOULD** | **[STUDIES]** 82% of answers traced back to a page the agent fetched — and that page was a docs page 47% of the time, more than any other page type. |
 | `AR-FIND-03` | The site **SHOULD** list its pages in a `sitemap.xml` referenced from `robots.txt`. | **SHOULD** | Still standard for crawlers and search engines. **[STUDIES]** Fetched directly in 4% of runs — one of the files real agents touch least. |
+| `AR-FIND-04` | The site **MAY** publish an AI Catalog at `/.well-known/ai-catalog.json` listing every agent-facing resource it ships (MCP server card, OpenAPI, GraphQL, A2A agent card, docs, `llms.txt`, skills), linked from the homepage head with `<link rel="ai-catalog">` and an HTTP `Link` header. | **MAY** | Not measured in the studies. Agentic Resource Discovery (ARD) registries such as [Ora Directory](https://ora.ai/directory) index published catalogs and answer search across them. |
 
 ### Crawl policy (normative notes)
 
@@ -107,6 +110,12 @@ The wildcard still leaves one deliberate choice. The model providers run a separ
 - **User-initiated fetchers** (ChatGPT-User, Claude-User)
 
 Each obeys its own `robots.txt` rule, so a site **MAY** block a training crawler — opting out of training — without dropping out of search indexes or agent answers. Two catches: a more specific group such as `User-agent: GPTBot` overrides the `*` group, so audit existing rules; and user-initiated fetchers may not consult `robots.txt` at all.
+
+Agents also find pages through agent search APIs such as the Brave Search API, Exa, Parallel, and Tavily, which run their own crawlers and indexes. The wildcard rule covers them; an allowlist of named crawlers does not.
+
+### Bot protection (normative notes)
+
+Bot protection is a second gate that `robots.txt` does not control. A WAF or bot manager that answers agents with a `403` or a challenge page blocks them however permissive the file is, and violates `AR-FIND-01`. Verified agents **SHOULD** be let through by the providers' published IP ranges or [Web Bot Auth](https://datatracker.ietf.org/wg/webbotauth/about/) signatures, and throttling **SHOULD** use a `429` rather than a challenge page (see `AR-READ-02`).
 
 ### Verification (informative)
 
@@ -142,6 +151,9 @@ The curl is not proof either way: bot blockers weigh where a request comes from 
 | `AR-READ-07` | The site **SHOULD** ship an `llms.txt`: a lean, described index of its key pages. | **SHOULD** | **[STUDIES]** 86% of its fetches came from a page that pointed to it. One in three agents that read it went on to fetch a page it lists, and 36% drew their final answer from its content. |
 | `AR-READ-08` | Key pages **SHOULD** carry JSON-LD — the homepage above all — so an agent fetching the raw HTML gets key facts and routes in one machine-readable block. Critical facts **SHOULD** also appear in visible text. | **SHOULD** | **[STUDIES]** Agents can parse facts straight from the block. Markdown converters may omit script blocks, so repeat critical facts in visible text. |
 | `AR-READ-09` | Pages **MAY** advertise a markdown mirror via `<link rel="alternate" type="text/markdown">` or an equivalent HTTP `Link:` header. | **MAY** | **[STUDIES]** Agents requested markdown on about 65% of web fetches; when they specified a format, they chose markdown 96% of the time. Format did not determine task success — ensure the HTML works first. |
+| `AR-READ-11` | Pricing **SHOULD** be published on a first-party page: plans, free tier, and limits as text in the HTML, not an image, a calculator, or a sales form. | **SHOULD** | **[STUDIES]** Built from the business's own pages, 60% of pricing answers were accurate, against 37% from elsewhere — the widest gap of any question type ([AX is the New AEO](https://ora.ai/blog/ax-is-the-new-aeo)). |
+
+`AR-READ-10` is retired.
 
 Additional measured context: `.well-known/*` files were reached in about 23% of runs across the sites tested **[STUDIES]**, and on sites that ship an `openapi.json`, it was used in 21% of runs **[STUDIES]** (its normative home is `AR-ACT-02`).
 
@@ -181,7 +193,7 @@ If the site is client-rendered, getting answers into the initial HTML is a real 
 
 ## 3. Act — Let agents act, not just read (`AR-ACT-*`)
 
-**Intent:** reading documentation does not let an agent complete a task. To act, an agent needs an operable interface such as an API, MCP server, SDK, or CLI, plus authentication it can complete. These interfaces still depend on discoverable and readable documentation. This category applies to products that expose programmatic capability.
+**Intent:** reading documentation does not let an agent complete a task. To act, an agent needs an operable interface such as an API, MCP server, WebMCP tools, NLWeb `/ask` endpoint, SDK, or CLI, plus authentication it can complete, and, if the product charges, a way to pay. These interfaces still depend on discoverable and readable documentation. This category applies to products agents are expected to act on.
 
 | ID | Requirement | Level | Best practice |
 |----|---|---|---|
@@ -191,8 +203,12 @@ If the site is client-rendered, getting answers into the initial HTML is a real 
 | `AR-ACT-04` | An MCP server **MAY** ship a server card for pre-connection discovery. | **MAY** | An emerging convention (SEP-2127, a working-group draft that major hosts have begun to support): ship one if your target hosts read it, but expect the exact path to keep moving. |
 | `AR-ACT-05` | Products with a UI **MAY** ship an MCP Apps view (`ui://` resource) so the agent can hand a working surface back to the user. | **MAY** | — |
 | `AR-ACT-06` | SDKs and a CLI **SHOULD** be published — the forms agents act in, code and shell. | **SHOULD** | Publish SDKs on npm and PyPI and a CLI; show install and first call in the docs. |
+| `AR-ACT-07` | A product with a web UI an agent should operate **SHOULD** register WebMCP tools on `document.modelContext`. | **SHOULD** | Feature-detect; the API is a [W3C Community Group draft](https://webmachinelearning.github.io/webmcp/). Complementary to a server MCP: these tools run in the live page with the signed-in session. Only ship tools that map to actions the product actually offers. |
+| `AR-ACT-08` | A product that charges **MAY** let agents pay: x402 or MPP for per-call pricing, UCP or ACP for checkout. | **MAY** | On Stripe, enable Link on checkout and accept Shared Payment Tokens, so an agent holding a Link Agent Wallet pays with a one-time credential the user approved. Do not put a CAPTCHA wall in front of a verified agent. **[STUDIES]** Paying through Link, agents got 92.3% of test checkouts right; 18 of 26 agents got at least 90%. |
+| `AR-ACT-09` | Content-heavy sites **MAY** serve an NLWeb `/ask` endpoint and expose the same `ask` tool over MCP. | **MAY** | `/ask` takes a natural-language question and returns schema.org-shaped results. Suits publishers, catalogs, and docs whose value is content rather than operations. |
+| `AR-ACT-10` | A product agents are expected to act on **MUST** expose at least one interface an agent can act through: an MCP server (`AR-ACT-03`) or a CLI (`AR-ACT-06`). | **MUST** | An MCP server serves agents working in chat and IDE hosts; a CLI serves agents working in a shell. Build the one that fits how agents use the product, and do not ship an empty surface to meet the requirement. |
 
-That is the full journey — find, read, act. The last step happens only if the first two did.
+That is the full journey — find, read, act.
 
 ### Underlying standards (informative)
 
@@ -203,6 +219,7 @@ That is the full journey — find, read, act. The last step happens only if the 
 - OpenAPI — https://spec.openapis.org/
 - Model Context Protocol — https://modelcontextprotocol.io/
 - MCP server cards — SEP-2127 (working-group draft)
+- WebMCP — https://webmachinelearning.github.io/webmcp/ (W3C Community Group draft)
 
 ---
 
@@ -231,16 +248,21 @@ curl -X POST https://ora.ai/api/scan \
 
 - **[What agents actually reach](https://ora.ai/blog/what-agents-actually-reach)** — the field report behind the trace numbers in this document. The report draws on a subset of the data used for this spec; the full dataset is in [`data/`](../data/).
 - **[The state of agent readiness](https://ora.ai/blog/state-of-agent-readiness-2026)** — the scanner report behind the reachability figure.
+- **[AX is the New AEO](https://ora.ai/blog/ax-is-the-new-aeo)** — 37,927 agent journeys across 1,056 business sites, behind the off-site answer and pricing figures.
+- **[ora research](https://ora.ai/research)** — the October 2026 Link checkout study behind the `AR-ACT-08` figure.
 - **[ora research](https://ora.ai)** — the ongoing research program behind the protocol.
 
 ---
 
 ## Changelog
 
+Full history in [`CHANGELOG.md`](../CHANGELOG.md).
+
 | Version | Date | Changes |
 |---|---|---|
-| 1.0 | August 2026 | First public version: requirements grounded in the studies, normative levels assigned from measurement. |
-| 0.0.1 | April 2026 | Initial skeleton draft (`AR-DISC/CONT/CAP/AUTH/COMM` categories, all levels TBD); superseded and identifiers retired. |
+| 2.0 | October 2026 | `AR-ACT-10` an MCP server or a CLI (**MUST**); `AR-ACT-07` WebMCP raised from **MAY** to **SHOULD**. New: `AR-FIND-04` AI Catalog, `AR-READ-11` pricing on a first-party page, `AR-ACT-08` agent payments, `AR-ACT-09` NLWeb. `AR-FIND-01` covers bot protection. `AR-READ-10` (`AGENTS.md` / `SKILLS.md`) removed and retired. |
+| 1.0 | August 2026 | Restructured into find / read / act: requirements grounded in the studies, normative levels assigned from measurement. |
+| 1.0.0 | April 2026 | First published version (announced March 20, 2026): five topic sections with `AR-DISC/CONT/CAPA/IDEN/COMM` identifiers and a `/spec.json` artifact; superseded by 1.0 and identifiers retired. |
 
 ---
 
