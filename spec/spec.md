@@ -48,7 +48,7 @@ Each requirement carries a stable identifier of the form:
 AR-<CATEGORY>-NN
 ```
 
-where `<CATEGORY>` is one of `FIND`, `READ`, `ACT` (matching the three stages below) and `NN` is a zero-padded sequence number scoped to that category.
+where `<CATEGORY>` is one of `FIND`, `READ`, `ACT`, `PROV` (matching the stages below) and `NN` is a zero-padded sequence number scoped to that category.
 
 Identifier policy:
 
@@ -72,7 +72,7 @@ A site conforms to AgentReady when it satisfies every **MUST**-level requirement
 
 All requirements share one prerequisite: the agent must be able to reach the page and find the answer in the returned HTML.
 
-The stages are evaluated in order. `AR-READ-*` requirements are moot for pages an agent cannot reach, and `AR-ACT-*` requirements are moot for products an agent cannot read about. The `AR-ACT-*` category applies only to products agents are expected to act on, not only read about; a purely informational site conforms on `AR-FIND-*` and `AR-READ-*` alone.
+The stages are evaluated in order. `AR-READ-*` requirements are moot for pages an agent cannot reach, and `AR-ACT-*` requirements are moot for products an agent cannot read about. The `AR-ACT-*` category applies only to products agents are expected to act on, not only read about; a purely informational site conforms on `AR-FIND-*` and `AR-READ-*` alone. `AR-PROV-*` (§4, proposed) is entirely **MAY**-level and applies only to products that support self-serve signup; it adds no new MUST requirement to the stages above.
 
 ---
 
@@ -208,8 +208,6 @@ If the site is client-rendered, getting answers into the initial HTML is a real 
 | `AR-ACT-09` | Content-heavy sites **MAY** serve an NLWeb `/ask` endpoint and expose the same `ask` tool over MCP. | **MAY** | `/ask` takes a natural-language question and returns schema.org-shaped results. Suits publishers, catalogs, and docs whose value is content rather than operations. |
 | `AR-ACT-10` | A product agents are expected to act on **MUST** expose at least one interface an agent can act through: an MCP server (`AR-ACT-03`) or a CLI (`AR-ACT-06`). | **MUST** | An MCP server serves agents working in chat and IDE hosts; a CLI serves agents working in a shell. Build the one that fits how agents use the product, and do not ship an empty surface to meet the requirement. |
 
-That is the full journey — find, read, act.
-
 ### Underlying standards (informative)
 
 - OAuth 2.0 — [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749)
@@ -220,6 +218,33 @@ That is the full journey — find, read, act.
 - Model Context Protocol — https://modelcontextprotocol.io/
 - MCP server cards — SEP-2127 (working-group draft)
 - WebMCP — https://webmachinelearning.github.io/webmcp/ (W3C Community Group draft)
+
+---
+
+## 4. Provision — Let agents open an account, not just use one (`AR-PROV-*`) — *proposed*
+
+> This category is proposed by [AINative Studio](https://ainative.studio) as an addition to this document, not yet adopted. It is included here as a draft for review; see the PR that introduced it for discussion.
+
+**Intent:** `AR-ACT-01` covers an agent completing authentication for an account a human already has, and `AR-ACT-08` covers an agent paying on an existing account. Neither covers the step before both: an agent, acting under a human's verifiable authorization, creating that account in the first place — accepting machine-readable terms and receiving scoped credentials without a human completing a signup form. Today that gap is closed, if at all, by an agent driving a human-oriented signup form in a browser: brittle, unauditable, and outside every stage above. This category applies to products that let new customers sign up at all.
+
+| ID | Requirement | Level | Best practice |
+|----|---|---|---|
+| `AR-PROV-01` | A product that supports self-serve signup **MAY** publish a discovery profile at `/.well-known/provisioning` declaring its provider, capabilities, consent models, and limits. | **MAY** | JSON profile; see the reference schema. An emerging convention, analogous to `AR-ACT-04`'s MCP server card: ship one if you want agents to provision without a human in the loop, expect the shape to move. |
+| `AR-PROV-02` | Machine-readable terms **SHOULD** be reachable at a stable URI declared in the profile, separate from a human-oriented terms page. | **SHOULD** | An agent that cannot resolve what it is agreeing to cannot act on a human's authorization in good faith. |
+| `AR-PROV-03` | Account creation **MAY** be exposed as an operable interface — an MCP tool, a REST endpoint, or both — declared under the profile's `capabilities`, each with a transport binding. | **MAY** | Reuse `AR-ACT-03`'s MCP server where one already exists, rather than standing up a second one just for provisioning. |
+| `AR-PROV-04` | Consent **SHOULD** be bound to a verifiable authorization model (for example signed-mandate or OAuth-delegation), declared in the profile's `consent.models`, not inferred from the request alone. | **SHOULD** | Distinguishes a provisioning agent acting under a human's actual authorization from one impersonating a human to get past a signup form. |
+| `AR-PROV-05` | Issued credentials **SHOULD** be scoped — least-privilege by default, not equivalent to a full human account — and revocable without resetting the underlying human's identity. | **SHOULD** | Mirrors the least-privilege expectation already normative for `AR-ACT-01`'s OAuth-delegated access, applied to a newly created account rather than an existing one. |
+
+### Evidence (informative)
+
+No `[STUDIES]`-tagged measurement exists yet for this stage — unlike `AR-FIND`/`AR-READ`/`AR-ACT`, there is no large-scale agent-run dataset for provisioning behavior today. This category is proposed at **MAY** level throughout, the same level this document already gives other early, unquantified conventions (`AR-ACT-04`, `AR-ACT-05`, `AR-ACT-09`), pending real measurement. AINative Studio has published an open reference implementation (FastAPI + MCP + ZeroDB) and a live production instance (`https://ainative.ax/.well-known/provisioning`) and offers to maintain this category and contribute the first dataset as adoption grows.
+
+### Underlying standards (informative)
+
+- OAuth 2.0 delegation patterns — [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749), as already referenced under `AR-ACT-01`
+- JSON Schema for the `/.well-known/provisioning` profile — published alongside this proposal
+
+That is the full journey — find, read, act, and, where sites support signup, provision.
 
 ---
 
@@ -241,6 +266,7 @@ curl -X POST https://ora.ai/api/scan \
 
 1. **MCP server card path.** SEP-2127 is a moving working-group draft; `AR-ACT-04` will pin a path once the draft settles.
 2. **User-initiated fetchers and `robots.txt`.** These fetchers may not consult `robots.txt` at all; whether the crawl-policy notes should address them separately is open.
+3. **`AR-PROV-*` adoption, proposed in §4.** Whether provisioning belongs in this document as a fourth stage, as its own companion document, or not at all, is open — raised for discussion in the PR that introduces it.
 
 ---
 
