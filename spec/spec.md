@@ -200,12 +200,12 @@ If the site is client-rendered, getting answers into the initial HTML is a real 
 | `AR-ACT-01` | Authentication **SHOULD** be completable by an agent: self-serve key generation with documented scopes; for user-delegated access, OAuth 2.0 with discoverable metadata under `/.well-known`. | **SHOULD** | [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414) (authorization server metadata), [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728) (protected resource metadata). |
 | `AR-ACT-02` | A public API **SHOULD** be described by a machine-readable OpenAPI contract. | **SHOULD** | Operation IDs, typed responses and errors, `/v1/` versioning, documented rate limits. |
 | `AR-ACT-03` | The product **SHOULD** expose an MCP server over Streamable HTTP at `/mcp`. | **SHOULD** | Keep the docs MCP public; gate the product MCP with OAuth — protected-resource metadata at `/.well-known/oauth-protected-resource` ([RFC 9728](https://www.rfc-editor.org/rfc/rfc9728)), with PKCE — and list it in the MCP Registry with a `server.json`. |
-| `AR-ACT-04` | An MCP server **MAY** ship a server card for pre-connection discovery. | **MAY** | An emerging convention (SEP-2127, a working-group draft that major hosts have begun to support): ship one if your target hosts read it, but expect the exact path to keep moving. |
+| `AR-ACT-04` | An MCP server **MAY** ship a server card for pre-connection discovery. | **MAY** | SEP-2127 is marked Final in the MCP specification repository, while the server-card extension's own spec is still a draft that major hosts have begun to support. A card describes one MCP server. Its reserved location is `<streamable-http-url>/server-card` (for `https://host/orquestra/mcp`, that is `https://host/orquestra/mcp/server-card`), or any URL listed in an AI Catalog entry of type `application/mcp-server-card+json`. A host serving several MCP servers should publish one card per server and list each in `/.well-known/ai-catalog.json` (`AR-FIND-04`). Any `/.well-known/` path, including the legacy `/.well-known/mcp/server-card.json`, sits at the origin root ([RFC 8615](https://www.rfc-editor.org/rfc/rfc8615)), never under the endpoint path. |
 | `AR-ACT-05` | Products with a UI **MAY** ship an MCP Apps view (`ui://` resource) so the agent can hand a working surface back to the user. | **MAY** | — |
 | `AR-ACT-06` | SDKs and a CLI **SHOULD** be published — the forms agents act in, code and shell. | **SHOULD** | Publish SDKs on npm and PyPI and a CLI; show install and first call in the docs. |
 | `AR-ACT-07` | A product with a web UI an agent should operate **SHOULD** register WebMCP tools on `document.modelContext`. | **SHOULD** | Feature-detect; the API is a [W3C Community Group draft](https://webmachinelearning.github.io/webmcp/). Complementary to a server MCP: these tools run in the live page with the signed-in session. Only ship tools that map to actions the product actually offers. |
 | `AR-ACT-08` | A product that charges **MAY** let agents pay: x402 or MPP for per-call pricing, UCP or ACP for checkout. | **MAY** | On Stripe, enable Link on checkout and accept Shared Payment Tokens, so an agent holding a Link Agent Wallet pays with a one-time credential the user approved. Do not put a CAPTCHA wall in front of a verified agent. **[STUDIES]** Paying through Link, agents got 92.3% of test checkouts right; 18 of 26 agents got at least 90%. |
-| `AR-ACT-09` | Content-heavy sites **MAY** serve an NLWeb `/ask` endpoint and expose the same `ask` tool over MCP. | **MAY** | `/ask` takes a natural-language question and returns schema.org-shaped results. Suits publishers, catalogs, and docs whose value is content rather than operations. |
+| `AR-ACT-09` | Content-heavy sites **MAY** serve an NLWeb `/ask` endpoint and expose the same `ask` tool over MCP. | **MAY** | `POST /ask` takes a JSON body with the question in `query.text` and returns typed results (schema.org types recommended), streamed over SSE when the client asks for it. The MCP `ask` tool is an optional binding (NLWeb v0.55, Appendix A). Suits publishers, catalogs, and docs whose value is content rather than operations. |
 | `AR-ACT-10` | A product agents are expected to act on **MUST** expose at least one interface an agent can act through: an MCP server (`AR-ACT-03`) or a CLI (`AR-ACT-06`). | **MUST** | An MCP server serves agents working in chat and IDE hosts; a CLI serves agents working in a shell. Build the one that fits how agents use the product, and do not ship an empty surface to meet the requirement. |
 
 That is the full journey — find, read, act.
@@ -218,8 +218,9 @@ That is the full journey — find, read, act.
 - OAuth 2.0 Protected Resource Metadata — [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728)
 - OpenAPI — https://spec.openapis.org/
 - Model Context Protocol — https://modelcontextprotocol.io/
-- MCP server cards — SEP-2127 (working-group draft)
+- MCP server cards — SEP-2127 (Final in the MCP specification repository; the extension spec is still a draft)
 - WebMCP — https://webmachinelearning.github.io/webmcp/ (W3C Community Group draft)
+- NLWeb — https://github.com/nlweb-ai/website/blob/main/NLWEBSPEC.md (v0.55)
 
 ---
 
@@ -239,7 +240,7 @@ curl -X POST https://ora.ai/api/scan \
 
 ## Open questions
 
-1. **MCP server card path.** SEP-2127 is a moving working-group draft; `AR-ACT-04` will pin a path once the draft settles.
+1. **MCP server card path.** SEP-2127 reserves `<streamable-http-url>/server-card` and uses the AI Catalog for domain discovery, but the extension spec is still a draft, so `AR-ACT-04` stays a **MAY** until hosts converge on it.
 2. **User-initiated fetchers and `robots.txt`.** These fetchers may not consult `robots.txt` at all; whether the crawl-policy notes should address them separately is open.
 
 ---
