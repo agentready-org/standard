@@ -6,9 +6,13 @@ surface is [agentready.org](https://agentready.org); the text lives in
 
 ---
 
-## Unreleased
+## v2.0.1 — November 2026
 
 Editorial: no requirement changes level.
+
+- New file: [`spec/practices.json`](spec/practices.json), every requirement's
+  identifier, level, and text in machine-readable form, generated from the
+  tables in `spec.md` and checked in CI. Each release attaches it.
 
 - `AR-ACT-04` best practice now follows SEP-2127, which the MCP specification
   repository marks Final: one card per server, at

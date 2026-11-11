@@ -1,0 +1,194 @@
+{
+  "$comment": "Generated from spec/spec.md by scripts/build-practices.mjs. Do not edit by hand: change spec.md and run `node scripts/build-practices.mjs`.",
+  "version": "2.0.1",
+  "date": "November 2026",
+  "stages": [
+    {
+      "category": "FIND",
+      "name": "Find",
+      "title": "Be reachable and citable"
+    },
+    {
+      "category": "READ",
+      "name": "Read",
+      "title": "Put the answer where agents read"
+    },
+    {
+      "category": "ACT",
+      "name": "Act",
+      "title": "Let agents act, not just read"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "AR-FIND-01",
+      "category": "FIND",
+      "level": "MUST",
+      "requirement": "The site **MUST NOT** block agent and crawler access to public content, in `robots.txt` or at the network layer.",
+      "evidence": "**[STUDIES]** Blocking was one of only two changes that broke an agent, and sites that were not agent-ready blocked agents 2.1× as often. **[ORA SCANNER]** Established agents reached 81–90% of sites."
+    },
+    {
+      "id": "AR-FIND-02",
+      "category": "FIND",
+      "level": "SHOULD",
+      "requirement": "Answers agents are expected to cite **SHOULD** be published on one canonical, current, first-party docs page.",
+      "evidence": "**[STUDIES]** 82% of answers traced back to a page the agent fetched — and that page was a docs page 47% of the time, more than any other page type."
+    },
+    {
+      "id": "AR-FIND-03",
+      "category": "FIND",
+      "level": "SHOULD",
+      "requirement": "The site **SHOULD** list its pages in a `sitemap.xml` referenced from `robots.txt`.",
+      "evidence": "Still standard for crawlers and search engines. **[STUDIES]** Fetched directly in 4% of runs — one of the files real agents touch least."
+    },
+    {
+      "id": "AR-FIND-04",
+      "category": "FIND",
+      "level": "MAY",
+      "requirement": "The site **MAY** publish an AI Catalog at `/.well-known/ai-catalog.json` listing every agent-facing resource it ships (MCP server card, OpenAPI, GraphQL, A2A agent card, docs, `llms.txt`, skills), linked from the homepage head with `<link rel=\"ai-catalog\">` and an HTTP `Link` header.",
+      "evidence": "Not measured in the studies. Agentic Resource Discovery (ARD) registries such as [Ora Directory](https://ora.ai/directory) index published catalogs and answer search across them."
+    },
+    {
+      "id": "AR-READ-01",
+      "category": "READ",
+      "level": "MUST",
+      "requirement": "The answer **MUST** be present in the initial HTML — server-rendered or prerendered, not injected by a single-page app after load.",
+      "evidence": "**[STUDIES]** A JavaScript-hidden answer was one of only two changes that broke an agent. The other was blocking it outright."
+    },
+    {
+      "id": "AR-READ-02",
+      "category": "READ",
+      "level": "MUST",
+      "requirement": "The site **MUST** return accurate HTTP status codes: `404` (or a valid redirect) for missing paths, and `429` with `Retry-After` when throttling — never a `200` for a missing page, and never a silent challenge page in place of a `429`.",
+      "evidence": "Agents cannot distinguish a soft-404 from a live page. In one observed case, a single-page app returned `200` for every path, making dead URLs appear valid. Agents and crawlers treat `429` as a back-off signal and will return."
+    },
+    {
+      "id": "AR-READ-03",
+      "category": "READ",
+      "level": "SHOULD",
+      "requirement": "The homepage **SHOULD** be served as raw HTML with real links to docs, product, and pricing.",
+      "evidence": "**[STUDIES]** Reached in 69% of runs, and it was the agent's first step in 92% of them; in 59% of those runs the next hop was a docs page."
+    },
+    {
+      "id": "AR-READ-04",
+      "category": "READ",
+      "level": "SHOULD",
+      "requirement": "Docs pages **SHOULD** answer the tasks users bring to agents.",
+      "evidence": "**[STUDIES]** Reached in 83% of runs and fetched more than any other page type — about 3.4 docs pages per run."
+    },
+    {
+      "id": "AR-READ-05",
+      "category": "READ",
+      "level": "SHOULD",
+      "requirement": "Code snippets **SHOULD** be fenced and language-tagged.",
+      "evidence": "**[STUDIES]** When an agent's answer included code, 61% of the time it contained lines taken verbatim from a page it fetched on the site."
+    },
+    {
+      "id": "AR-READ-06",
+      "category": "READ",
+      "level": "SHOULD",
+      "requirement": "Discovery files (`llms.txt`, `.well-known/*`, `openapi.json`, `AGENTS.md`) **SHOULD** be linked from content agents already visit — the footer, page metadata such as `<link rel=\"alternate\">`, or a resources section.",
+      "evidence": "**[STUDIES]** Agents typically opened these resources after visiting the homepage; depending on the file type, 86–100% of visits came through links rather than guessed paths."
+    },
+    {
+      "id": "AR-READ-07",
+      "category": "READ",
+      "level": "SHOULD",
+      "requirement": "The site **SHOULD** ship an `llms.txt`: a lean, described index of its key pages.",
+      "evidence": "**[STUDIES]** 86% of its fetches came from a page that pointed to it. One in three agents that read it went on to fetch a page it lists, and 36% drew their final answer from its content."
+    },
+    {
+      "id": "AR-READ-08",
+      "category": "READ",
+      "level": "SHOULD",
+      "requirement": "Key pages **SHOULD** carry JSON-LD — the homepage above all — so an agent fetching the raw HTML gets key facts and routes in one machine-readable block. Critical facts **SHOULD** also appear in visible text.",
+      "evidence": "**[STUDIES]** Agents can parse facts straight from the block. Markdown converters may omit script blocks, so repeat critical facts in visible text."
+    },
+    {
+      "id": "AR-READ-09",
+      "category": "READ",
+      "level": "MAY",
+      "requirement": "Pages **MAY** advertise a markdown mirror via `<link rel=\"alternate\" type=\"text/markdown\">` or an equivalent HTTP `Link:` header.",
+      "evidence": "**[STUDIES]** Agents requested markdown on about 65% of web fetches; when they specified a format, they chose markdown 96% of the time. Format did not determine task success — ensure the HTML works first."
+    },
+    {
+      "id": "AR-READ-11",
+      "category": "READ",
+      "level": "SHOULD",
+      "requirement": "Pricing **SHOULD** be published on a first-party page: plans, free tier, and limits as text in the HTML, not an image, a calculator, or a sales form.",
+      "evidence": "**[STUDIES]** Built from the business's own pages, 60% of pricing answers were accurate, against 37% from elsewhere — the widest gap of any question type ([AX is the New AEO](https://ora.ai/blog/ax-is-the-new-aeo))."
+    },
+    {
+      "id": "AR-ACT-01",
+      "category": "ACT",
+      "level": "SHOULD",
+      "requirement": "Authentication **SHOULD** be completable by an agent: self-serve key generation with documented scopes; for user-delegated access, OAuth 2.0 with discoverable metadata under `/.well-known`.",
+      "bestPractice": "[RFC 8414](https://www.rfc-editor.org/rfc/rfc8414) (authorization server metadata), [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728) (protected resource metadata)."
+    },
+    {
+      "id": "AR-ACT-02",
+      "category": "ACT",
+      "level": "SHOULD",
+      "requirement": "A public API **SHOULD** be described by a machine-readable OpenAPI contract.",
+      "bestPractice": "Operation IDs, typed responses and errors, `/v1/` versioning, documented rate limits."
+    },
+    {
+      "id": "AR-ACT-03",
+      "category": "ACT",
+      "level": "SHOULD",
+      "requirement": "The product **SHOULD** expose an MCP server over Streamable HTTP at `/mcp`.",
+      "bestPractice": "Keep the docs MCP public; gate the product MCP with OAuth — protected-resource metadata at `/.well-known/oauth-protected-resource` ([RFC 9728](https://www.rfc-editor.org/rfc/rfc9728)), with PKCE — and list it in the MCP Registry with a `server.json`."
+    },
+    {
+      "id": "AR-ACT-04",
+      "category": "ACT",
+      "level": "MAY",
+      "requirement": "An MCP server **MAY** ship a server card for pre-connection discovery.",
+      "bestPractice": "SEP-2127 is marked Final in the MCP specification repository, while the server-card extension's own spec is still a draft that major hosts have begun to support. A card describes one MCP server. Its reserved location is `<streamable-http-url>/server-card` (for `https://host/orquestra/mcp`, that is `https://host/orquestra/mcp/server-card`), or any URL listed in an AI Catalog entry of type `application/mcp-server-card+json`. A host serving several MCP servers should publish one card per server and list each in `/.well-known/ai-catalog.json` (`AR-FIND-04`). Any `/.well-known/` path, including the legacy `/.well-known/mcp/server-card.json`, sits at the origin root ([RFC 8615](https://www.rfc-editor.org/rfc/rfc8615)), never under the endpoint path."
+    },
+    {
+      "id": "AR-ACT-05",
+      "category": "ACT",
+      "level": "MAY",
+      "requirement": "Products with a UI **MAY** ship an MCP Apps view (`ui://` resource) so the agent can hand a working surface back to the user."
+    },
+    {
+      "id": "AR-ACT-06",
+      "category": "ACT",
+      "level": "SHOULD",
+      "requirement": "SDKs and a CLI **SHOULD** be published — the forms agents act in, code and shell.",
+      "bestPractice": "Publish SDKs on npm and PyPI and a CLI; show install and first call in the docs."
+    },
+    {
+      "id": "AR-ACT-07",
+      "category": "ACT",
+      "level": "SHOULD",
+      "requirement": "A product with a web UI an agent should operate **SHOULD** register WebMCP tools on `document.modelContext`.",
+      "bestPractice": "Feature-detect; the API is a [W3C Community Group draft](https://webmachinelearning.github.io/webmcp/). Complementary to a server MCP: these tools run in the live page with the signed-in session. Only ship tools that map to actions the product actually offers."
+    },
+    {
+      "id": "AR-ACT-08",
+      "category": "ACT",
+      "level": "MAY",
+      "requirement": "A product that charges **MAY** let agents pay: x402 or MPP for per-call pricing, UCP or ACP for checkout.",
+      "bestPractice": "On Stripe, enable Link on checkout and accept Shared Payment Tokens, so an agent holding a Link Agent Wallet pays with a one-time credential the user approved. Do not put a CAPTCHA wall in front of a verified agent. **[STUDIES]** Paying through Link, agents got 92.3% of test checkouts right; 18 of 26 agents got at least 90%."
+    },
+    {
+      "id": "AR-ACT-09",
+      "category": "ACT",
+      "level": "MAY",
+      "requirement": "Content-heavy sites **MAY** serve an NLWeb `/ask` endpoint and expose the same `ask` tool over MCP.",
+      "bestPractice": "`POST /ask` takes a JSON body with the question in `query.text` and returns typed results (schema.org types recommended), streamed over SSE when the client asks for it. The MCP `ask` tool is an optional binding (NLWeb v0.55, Appendix A). Suits publishers, catalogs, and docs whose value is content rather than operations."
+    },
+    {
+      "id": "AR-ACT-10",
+      "category": "ACT",
+      "level": "MUST",
+      "requirement": "A product agents are expected to act on **MUST** expose at least one interface an agent can act through: an MCP server (`AR-ACT-03`) or a CLI (`AR-ACT-06`).",
+      "bestPractice": "An MCP server serves agents working in chat and IDE hosts; a CLI serves agents working in a shell. Build the one that fits how agents use the product, and do not ship an empty surface to meet the requirement."
+    }
+  ],
+  "retired": [
+    "AR-READ-10"
+  ]
+}

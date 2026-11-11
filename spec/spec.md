@@ -1,6 +1,6 @@
 # AgentReady — Make your site readable by AI agents
 
-> **Status:** v2.0 — October 2026
+> **Status:** v2.0.1 — November 2026
 > **Canonical site:** https://agentready.org
 > **Written by:** [ora.ai](https://ora.ai) and [Vercel](https://vercel.com)
 > **Dataset:** [`data/`](../data/)
@@ -261,6 +261,7 @@ Full history in [`CHANGELOG.md`](../CHANGELOG.md).
 
 | Version | Date | Changes |
 |---|---|---|
+| 2.0.1 | November 2026 | Editorial: `AR-ACT-04` follows SEP-2127 for the server card location; `AR-ACT-09` describes NLWeb v0.55. No level changes. |
 | 2.0 | October 2026 | `AR-ACT-10` an MCP server or a CLI (**MUST**); `AR-ACT-07` WebMCP raised from **MAY** to **SHOULD**. New: `AR-FIND-04` AI Catalog, `AR-READ-11` pricing on a first-party page, `AR-ACT-08` agent payments, `AR-ACT-09` NLWeb. `AR-FIND-01` covers bot protection. `AR-READ-10` (`AGENTS.md` / `SKILLS.md`) removed and retired. |
 | 1.0 | August 2026 | Restructured into find / read / act: requirements grounded in the studies, normative levels assigned from measurement. |
 | 1.0.0 | April 2026 | First published version (announced March 20, 2026): five topic sections with `AR-DISC/CONT/CAPA/IDEN/COMM` identifiers and a `/spec.json` artifact; superseded by 1.0 and identifiers retired. |
