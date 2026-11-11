@@ -1,0 +1,37 @@
+name: release
+
+# Push a tag such as v2.0.1 to publish a GitHub release with practices.json
+# attached. agentready.org pins a release tag and opens a PR to bump it
+# when a newer release appears.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: practices.json is current
+        run: node scripts/build-practices.mjs --check
+      - name: tag matches the spec version
+        run: |
+          spec="v$(node -p 'require("./spec/practices.json").version')"
+          if [ "$spec" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match spec.md status $spec"; exit 1
+          fi
+      - name: release notes from CHANGELOG.md
+        run: |
+          awk -v h="## $GITHUB_REF_NAME " 'index($0, h) == 1 {on=1; next} on && /^## / {exit} on' CHANGELOG.md > notes.md
+          [ -s notes.md ] || { echo "No '## $GITHUB_REF_NAME —' section in CHANGELOG.md"; exit 1; }
+      - name: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" spec/practices.json --title "$GITHUB_REF_NAME" --notes-file notes.md

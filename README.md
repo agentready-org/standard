@@ -22,6 +22,7 @@ The spec is written by **[ora.ai](https://ora.ai)** and **[Vercel](https://verce
 | Path | What it holds |
 |---|---|
 | [`spec/spec.md`](spec/spec.md) | The spec text — stable `AR-*` requirement identifiers across the find/read/act stages, with normative levels derived from the measured findings. |
+| [`spec/practices.json`](spec/practices.json) | The requirements in machine-readable form — identifier, level, requirement, evidence — generated from the tables in `spec.md`. agentready.org reads it from a release tag. |
 | [`data/`](data/) | The measurement data behind the spec, with its own [README](data/README.md) documenting every column. |
 | [`CHANGELOG.md`](CHANGELOG.md) | Version history of the spec, including every retired identifier. |
 
@@ -36,14 +37,15 @@ See [`data/README.md`](data/README.md) for the full column reference and methodo
 
 ## Status
 
-- The spec is at **v2.0** (October 2026). See [`CHANGELOG.md`](CHANGELOG.md) for what changed.
+- The spec is at **v2.0.1** (November 2026). See [`CHANGELOG.md`](CHANGELOG.md) for what changed.
 - Versioning follows [semver](https://semver.org/). A major bump indicates a breaking change to a normative requirement.
-- Where this repo and [agentready.org](https://agentready.org) diverge, the site wins until reconciliation lands here.
+- This repo is the source of truth. [agentready.org](https://agentready.org) pins a release and reads each requirement's identifier and level from its `practices.json`, and its build fails if the page shows an identifier the spec lacks or has retired, or leaves one out.
 
 ## Contributing
 
 - Open an issue for unclear requirements, missing surfaces, errata, or questions about the data.
-- Pull requests against the spec should edit [`spec/spec.md`](spec/spec.md).
+- Pull requests against the spec should edit [`spec/spec.md`](spec/spec.md), then run `node scripts/build-practices.mjs` and commit the regenerated `spec/practices.json`. CI fails if the two disagree.
+- Releases: bump the `Status` line in `spec.md`, add a `## vX.Y.Z — Month YYYY` section to the changelog, merge, and push a matching `vX.Y.Z` tag. The release workflow attaches `practices.json`.
 - Challenges to a measured number are welcome — the dataset is in [`data/`](data/) precisely so the numbers can be checked.
 
 ## License
