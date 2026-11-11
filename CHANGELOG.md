@@ -6,6 +6,19 @@ surface is [agentready.org](https://agentready.org); the text lives in
 
 ---
 
+## Unreleased
+
+Editorial: no requirement changes level.
+
+- `AR-ACT-04` best practice now follows SEP-2127, which the MCP specification
+  repository marks Final: one card per server, at
+  `<streamable-http-url>/server-card` or listed in `/.well-known/ai-catalog.json`,
+  and any `/.well-known/` path resolved at the origin root (RFC 8615). Answers
+  issue #7. Open question 1 is updated to match.
+- `AR-ACT-09` describes NLWeb v0.55 precisely (`POST /ask` with `query.text`,
+  typed results with schema.org types recommended, the MCP `ask` tool as an
+  optional binding), and the underlying standards list gains NLWeb.
+
 ## v2.0 — October 2026
 
 A major version: `AR-ACT-10` adds a `MUST`, so a product that conformed
